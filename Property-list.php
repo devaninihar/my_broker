@@ -87,13 +87,13 @@
                                 <li class="nav-item me-2">
                                     <?php $id = $_GET['id'] ?>
 
-                                    <a class="btn btn-outline-primary" href="All_Property.php?id=<?php echo$id ?>">All Property</a>
+                                    <a class="nav__link active-link" href="Property-list.php?id=<?php echo$id ?>">All Property</a>
                                 </li>
                                 <li class="nav-item me-2">
-                                    <a class="btn btn-outline-primary" href="sell.php?id=<?php echo$id ?>">For Sell</a>
+                                    <a class="nav__link " href="sell.php?id=<?php echo$id ?>">For Sell</a>
                                 </li>
                                 <li class="nav-item me-0">
-                                    <a class="btn btn-outline-primary" href="rent.php?id=<?php echo$id ?>">For Rent</a>
+                                    <a class="nav__link " href="rent.php?id=<?php echo$id ?>">For Rent</a>
                                 </li>
                             </ul>
                         </div>
@@ -101,11 +101,10 @@
                 </div></div>        
 
             <!--==================== property-list ====================-->
-            <section class="featured section container" id="featured">
-                <h2 class="section__title">
+<!--           
+-->            <h2 class="section__title">
                     Property
                 </h2>
-            </section>
             <?php
             include 'connection.php';
             $query = "SELECT imagepath, cost, type, built, bhk, bathroom, listingtype, p_id FROM property WHERE status = 1";
@@ -142,9 +141,7 @@
                                 <center>
                                     <button class="button featured__button">Info</button></a>
                             </center>
-                            <!--                           
-        <a href="info.php"><br><br>
-                                <button class="button featured__button">Info</button></a>-->
+                            
                         </div>
                     </div>
 
@@ -170,7 +167,29 @@
                 margin-right: 20px;
                 gap: 1rem;
             }
+            
+
         </style>
+        <style>
+
+.py-5 {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00000;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #333333;
+        }
+
+        
+
+    </style>
        
     <!--=============== SCROLL UP ===============-->
     <a href="#" class="scrollup" id="scroll-up">

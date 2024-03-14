@@ -103,17 +103,9 @@
                     background-color: #0056b3;
                 }
             </style>-->
-    <style>
-        body {
-            /*font-family: 'Arial', sans-serif;*/
-            background-color: #f8f9fa;
-        }
 
-        .container-xxl {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+    <style>
+
 
         .py-5 {
             padding-top: 5rem;
@@ -122,7 +114,7 @@
 
         h1 {
             font-size: 2.5rem;
-            color: #007bff;
+            color: #00000;
         }
 
         p {
@@ -130,24 +122,8 @@
             color: #333333;
         }
 
-        .nav-pills {
-            background-color: #ffffff;
-        }
 
-        .nav-item {
-            margin-right: 10px;
-        }
 
-        .btn-outline-primary {
-            color: #007bff;
-            border-color: #007bff;
-        }
-
-        .btn-outline-primary:hover {
-            color: #ffffff;
-            background-color: #007bff;
-            border-color: #007bff;
-        }
     </style>
     <body>
         <!--==================== HEADER ====================-->
@@ -212,10 +188,14 @@
                             <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
                                 <li class="nav-item me-2">
                                     <?php $id = $_GET['id'] ?>
-                                    <a class="btn btn-outline-primary" href="sell.php?id=<?php echo$id ?>">For Sell Property </a>
+
+                                    <a class="nav__link " href="Property-list.php?id=<?php echo$id ?>">All Property</a>
+                                </li>
+                                <li class="nav-item me-2">
+                                    <a class="nav__link " href="sell.php?id=<?php echo$id ?>">For Sell</a>
                                 </li>
                                 <li class="nav-item me-0">
-                                    <a class="btn btn-outline-primary" href="rent.php?id=<?php echo$id ?>">For Rent Property </a>
+                                    <a class="nav__link active-link" href="rent.php?id=<?php echo$id ?>">For Rent</a>
                                 </li>
                             </ul>
                         </div>
