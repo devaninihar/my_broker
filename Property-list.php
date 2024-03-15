@@ -107,7 +107,7 @@
                 </h2>
             <?php
             include 'connection.php';
-            $query = "SELECT imagepath, cost, type, built, bhk, bathroom, listingtype, p_id FROM property WHERE status = 1";
+            $query = "SELECT imagepath, cost, type, built, bhk, bathroom, listingtype, p_id FROM property WHERE status = 1 and property_status=1";
             $result = mysqli_query($conn, $query);
 
             if (mysqli_num_rows($result) > 0) {
