@@ -19,14 +19,13 @@
 </head>
 
 <style>
-
-
     body {
 
         color: #000;
 
         line-height: 1.5;
     }
+
     .title p {
         font-size: 20px;
         color: orange;
@@ -65,6 +64,7 @@
         margin-left: -30%;
         ;
     }
+
     label {
         color: #000;
         display: block;
@@ -92,7 +92,6 @@
         color: #ffa500;
         text-decoration: none;
     }
-
 </style>
 
 <!--==================== HEADER ====================-->
@@ -145,11 +144,11 @@
 session_start();
 require 'connection.php';
 
-if (isset($_POST['login_button'])) {
+if (isset ($_POST['login_button'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if (!empty($email) && !empty($password)) {
+    if (!empty ($email) && !empty ($password)) {
         $query = "SELECT * FROM `master_table` WHERE `U_Email`='$email' AND `U_Password`='$password'";
         $result = mysqli_query($conn, $query);
         $_SESSION['email'] = $email;
@@ -174,14 +173,12 @@ if (isset($_POST['login_button'])) {
     }
 }
 
-if (isset($error_message)) {
+if (isset ($error_message)) {
     echo '<script>alert("' . $error_message . '");</script>';
 }
 
 mysqli_close($conn);
 ?>
-
-
 <br><br><br>
 
 <div class="container-xxl bg-white p-0">
@@ -296,7 +293,5 @@ mysqli_close($conn);
 <!--=============== MAIN JS ===============-->
 <script src="js/main.js"></script>
 </body>
+
 </html>
-
-
-
