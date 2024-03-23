@@ -177,7 +177,8 @@
     }
 
     input[type="submit"]:hover {
-        background-color: hsl(31, 100%, 70%);;
+        background-color: hsl(31, 100%, 70%);
+        ;
     }
 
     .button--small {
@@ -194,33 +195,68 @@
     }
 
     .button--small-drop {
-    padding: 1rem 1.5rem;
-    display: inline-block;
-    background-color: var(--button-color);
-    color: #FFF;
-    padding: 1.25rem 2rem;
-    font-weight: var(--font-medium);
-    transition: .3s;
-    border-radius: 129px;
-}
-.container-info {
-       /* background-color: #f0f0f0; */
-    /* border: 1px solid #ccc; */
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    width: 280px;
-    margin-left: 59px;
-    margin-top: -102px;
+        padding: 1rem 1.5rem;
+        display: inline-block;
+        background-color: var(--button-color);
+        color: #FFF;
+        padding: 1.25rem 2rem;
+        font-weight: var(--font-medium);
+        transition: .3s;
+        border-radius: 129px;
+    }
 
-}
+    .container-info {
+        /* background-color: #f0f0f0; */
+        /* border: 1px solid #ccc; */
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        width: 280px;
+        margin-left: 59px;
+        margin-top: -102px;
 
-.container-info p {
-    margin: 5px 0; 
-    font-size: 16px;
-    color: #333;
-}
+    }
 
+    .container-info p {
+        margin: 5px 0;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* card */
+    .card {
+        width: 190px;
+        height: 175px;
+        border-radius: 16px;
+        /* background: hsl(31deg 100% 79.57%);; */
+        box-shadow: 20px 20px 60px #bebebe,
+            -20px -20px 60px #ffffff;
+    }
+
+    .row.g-4 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .featured__container {
+        width: 30%;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        gap: 1rem;
+    }
+/* icon */
+.card i {
+        color: black; /* Set color to black */
+        font-size: 3em; /* Set size to big */
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: space-around;
+        margin: 16px 5%;
+        /* To account for the 2% spacing between cards */
+    }
 </style>
 </head>
 
@@ -322,17 +358,17 @@
             echo '<div class="property-info">';
             echo '<h2 class="section__title story__section-title">' . $title . '</h2>';
             echo '<h1 class="story__title"  style="color: green; ">₹' . $price . '</h1>';
-           
+
             echo '<form action="compper_property.php?id=' . htmlspecialchars($id) . '" method="get">';
 
             // Property Comparison Form
-            
+    
             echo '<form action="compper_property.php?id=' . htmlspecialchars($id) . '" method="get">';
             echo '<input type="hidden" name="p_id" value="' . htmlspecialchars($p_id) . '">';
 
             // Property selector
             echo '<label for="p_id2" style="color: black; font-weight: bold;">Select Property to Compare:</label> ';
-           
+
             echo '<select name="p_id2" id="p_id2" class="button--small-drop">';
 
             // Query to populate the options for Property 2
@@ -354,21 +390,49 @@
             echo '<br><br>';
             echo '<input type="submit" value="Compare Properties">';
             echo '</form>'; // Close the Property Comparison Form
-             echo '<a href="property-list.php?id=' . htmlspecialchars($id) . '" class="button ">Back to home</a></br>';
+            echo '<a href="property-list.php?id=' . htmlspecialchars($id) . '" class="button ">Back to home</a></br>';
             echo '</div>'; // Close property-info div
             echo '</div>'; // Close property-container div
-            
+    
             echo '</div>';
             echo '</div>';
 
             echo '</div>'; // Close property-info div
             echo '</div>'; // Close property-container div
-            echo '<div class="container-info">';
-            echo '<p> <i class="fa-solid fa-bed"></i>  Beds: ' . $beds . ' |<i class="fa-solid fa-sink"></i>  Baths: ' . $baths . ' |<i class="fa-solid fa-kitchen-set"></i> BHK: ' . $bhk . '</p>';
-            echo '<p>Furniture: ' . $furniture . ' | Open Parking: ' . $openp . ' | Covered Parking: ' . $coverp . '</p>';
-            echo '<p>Property Usage: ' . $propertyusage . ' | Listing Type: ' . $listingtype .  '</p>';
+            // echo '<div class="container-info">';
+            echo'<div class="card-container">';
+            echo '<div class="card">';
+            echo '<p> <br><i class="fa-solid fa-bed"></i> <br> Beds  <br> <p style="color: green; font-size: 35px;">' . $beds . '</p> </p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p>  <br><i class="fa-solid fa-sink"></i> <br> Baths   <br>  <p style="color: green; font-size: 35px;">' . $baths .'</p> </p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p>  <br><i class="fa-solid fa-kitchen-set"></i>  <br> BHK  <p style="color: green; font-size: 35px;">' . $bhk . '</p> </p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p>  <br><i class="fa-solid fa-couch"></i>  <br> Furniture  <p style="color: green; font-size: 25px;">' . $furniture . '</p> </p>';
+            echo '</div>'; //close card div
             echo '</div>';
-            
+            echo'<br>';
+            echo'<div class="card-container">';
+            echo '<div class="card">';
+            echo '<p> <br><i class="fa-solid fa-car"></i> <br> Open Parking <p style="color: green; font-size: 35px;"> ' . $openp . '</p> </p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p>  <br> <i class="fa-solid fa-warehouse"></i>  <br> Covered Parking <p style="color: green; font-size: 35px;"> ' . $coverp . '</p></p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p> <br> <i class="fa-solid fa-building"></i> <br>Property Usage <p style="color: green; font-size: 25px;"> ' . $propertyusage . '</p> </p>';
+            echo '</div>'; //close card div
+            echo '<div class="card">';
+            echo '<p> <br> <i class="fa-solid fa-house"></i> <br>Listing Type <p style="color: green; font-size: 25px   ;">' . $listingtype . '</p> </p>';
+            echo '</div>';
+            echo '</div>'; //close card div
+            echo'</div>';//closecard-container
+            // echo '</div>';//close continer info
+    
+
         } else {
             echo "Property not found.";
         }
