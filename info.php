@@ -395,7 +395,7 @@
             echo '</div>'; // Close property-container div
     
             echo '</div>';
-            echo '</div>';
+            echo '</div>'; 
 
             echo '</div>'; // Close property-info div
             echo '</div>'; // Close property-container div

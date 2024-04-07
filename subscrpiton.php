@@ -1,3 +1,7 @@
+<?php
+use Razorpay\Api\Api;
+
+?>
 <html>
 
 <head>
@@ -137,101 +141,75 @@
 </head>
 
 <body>
-    <div class="card">
+    <div class="card" onclick="subscribe()">
         <span class="title">My Broker plus
             <p class="pricing" id="amount" name="amount">299 <span class="pricing-time">/ month</span></p>
             <span class="sub-title">Everything on Basic plus:
                 <ul class="list">
-                    <li class="list-item"><span class="check">✓</span> Property Loacation</li>
+                    <li class="list-item"><span class="check">✓</span> Property Location</li>
                     <li class="list-item"><span class="check">✓</span> Seller's Contact No.</li>
                     <li class="list-item"><span class="check">✓</span> Chat With Owner</li>
                     <li class="list-item"><span class="check">✓</span> Bidding</li>
-                    <!-- <li class="list-item"><span class="check">✓</span> Feature</li> -->
+                    <li class="list-item" id="expiry-date"></li>
                 </ul>
-                <button class="button">
-                    <span class="text-button" id="pay-button">Get pro now</span>
-                </button>
+                <form id="paymentForm">
+                    <button type="submit" class="button">
+                        <span class="text-button" name="pay" id="pay-button">Get pro now</span>
+                    </button>
+                </form>
             </span>
         </span>
     </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-    $('#pay-button').click(function () {
-        // var uid = $('#uid').val();
-        // var name = $('#name').val();
-        // var flat = $('#flat').val();
-        var amount = $('#amount').text().trim();
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        function subscribe() {
+            var currentDate = new Date();
+            var expiryDate = new Date(currentDate);
+            expiryDate.setMonth(expiryDate.getMonth() + 1);
 
-        var options = {
-            key: "rzp_test_4ZXlNDC9fKRGjQ",
-            // amount: amount * 100,
-            amount: parseFloat(amount) * 100, 
-            currency: "INR",
-            name: "My Broker",
-            description: "Payment Description",
-            handler: function (response) {
-                var paymentId = response.razorpay_payment_id;
+            var startDateFormatted = currentDate.toISOString().split('T')[0];
+            var expiryDateFormatted = expiryDate.toISOString().split('T')[0];
 
-                $.post('subscrption.php', {
-                    razorpay_payment_id: paymentId
-                }, function (data) {
-
-                    if (data.success) {
-                        alert(data.message);
-                        // Handle success, e.g., show a success message to the user
-                    } else {
-                        alert(data.message);
-                        // Handle failure, e.g., show an error message to the user
-                    }
-                }, 'json');
-            },
-            prefill: {
-                name: "nihar",
-                email: "devaninihar@gmail.com"
-            }
-        };
-
-        var rzp = new Razorpay(options);
-        rzp.open();
-    });
-</script>
-<?php
-error_reporting(0);
-
-use Razorpay\Api\Api;
-
-$apiKey = 'rzp_test_4ZXlNDC9fKRGjQ';
-$apiSecret = 'mzZ0RWkG1v7ORMXLITtXOJZz';
-
-$api = new Api($apiKey, $apiSecret);
-
-if (isset ($_POST['submit'])) {
-    $paymentId = $_POST['razorpay_payment_id'];
-
-    try {
-        $payment = $api->payment->fetch($paymentId);
-
-        // Ensure the payment status is captured
-        if ($payment->status === 'captured') {
-            echo "Payment is already captured. Payment ID: " . $paymentId;
-        } else {
-            // Attempt to capture the payment
-            $capturedPayment = $payment->capture(array('amount' => $payment->amount));
-
-            if ($capturedPayment->status === 'captured') {
-                echo "Payment successful. Payment ID: " . $paymentId;
-            } else {
-                echo "Payment capture failed. Payment ID: " . $paymentId;
-            }
+            document.getElementById("expiry-date").innerHTML = '<span class="check">✓</span> Subscription start date: ' + startDateFormatted + '<br><span class="check">✓</span> Subscription expiry date: ' + expiryDateFormatted;
         }
-    } catch (\Exception $e) {
-        echo "Payment failed: " . $e->getMessage();
-    }
-} else {
-    echo "Invalid request method.";
-}
-?>
+
+        $(document).ready(function () {
+            $('#paymentForm').submit(function (event) {
+                event.preventDefault();
+                var amount = $('#amount').text().trim();
+
+                var options = {
+                    "key": "rzp_test_4ZXlNDC9fKRGjQ", // Replace with your Razorpay API key
+                    amount: parseFloat(amount) * 100,
+                    "currency": "INR",
+                    "name": "My Broker",
+                    "description": "Payment for My Broker Subscription",
+                    "handler": function (response) {
+                        var paymentId = response.razorpay_payment_id;
+                        $.ajax({
+                            type: "POST",
+                            url: "subscription.php", // Change this to your PHP file handling database insertion
+                            data: { razorpay_payment_id: paymentId },
+                            dataType: "json",
+                            success: function (result) {
+                                if (result.success) {
+                                    alert("Payment was successful.");
+                                } else {
+                                    alert("Payment failed: " + result.message);
+                                }
+                            },
+                            error: function (error) {
+                                console.error("AJAX request error: " + JSON.stringify(error));
+                            }
+                        });
+                    }
+                };
+
+                var rzp = new Razorpay(options);
+                rzp.open();
+            });
+        });
+    </script>
 
 </html>
